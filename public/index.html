@@ -83,7 +83,6 @@
 								  <li class="nav-item active"><a class="nav-link waves-effect waves-light" href="#">Home</a></li>
 				  <li class="nav-item" id = "loginLink">
 						<a class="nav-link waves-effect waves-light" id="signInButton" href="javascript:void(0)" title="Sign in">Log in/Register</a>
-				  <li class="nav-item" id = "signoutLink"><a class="nav-link waves-effect waves-light" href="#" onclick="javascript:void(0)" id="signout">Sign out</a></li>
   
 				</ul>
 			  </div>
@@ -92,8 +91,8 @@
 		</div>
 	  </div>
   
-	  <div style="margin-top:50px;margin-left:50px;">
-		  <div id = "boxUI">
+	  <div style="margin:auto;width:50%;">
+		  		  <div id = "boxUI">
 				  <div id = "app-container" style="width:80%;"></div>
 			  </div>
 		  <section class="view">
@@ -133,7 +132,7 @@
 	<script>
 function showBoxUI(boxAccessToken) {
 	
-	$("#view").hide();
+	$(".view").hide();
 	getBoxToken(boxAccessToken).then(function(result) {
 		var folderId = '0';
 
@@ -269,7 +268,6 @@ var accessToken;
 		// auth.setState(<state parameter>);  
 		auth.userhandler = {
 			onSuccess: function(result) {
-				alert("Sign in success");
 				console.log("res:" + JSON.stringify(result));
 				showSignedIn(result);
 				console.log(result.accessToken);
