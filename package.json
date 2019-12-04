@@ -4,7 +4,7 @@
   "description": "Box Cognito sandpit",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
