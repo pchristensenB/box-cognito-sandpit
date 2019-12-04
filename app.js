@@ -20,7 +20,7 @@ var nJwt = require('njwt');
 var util = require('util');
 
 var request = require('request');
-const boxAppSettings =process.env.BOX_CONFIG || {
+const boxAppSettings ={
 	"boxAppSettings": {
 	  "clientID": "5qwptmt2m3pe0sckxbp09bx0p9acvl73",
 	  "clientSecret": "PuD9h0ioE47wr2p9i1lprLLg56KJPWb0",
