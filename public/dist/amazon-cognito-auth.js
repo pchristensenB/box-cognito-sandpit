@@ -1720,6 +1720,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'signOut',
 	    value: function signOut() {
+				console.log("signout");
 	      var URL = this.getFQDNSignOut();
 	      this.signInUserSession = null;
 	      this.clearCachedTokensScopes();

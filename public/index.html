@@ -25,7 +25,7 @@
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="/dist/amazon-cognito-auth.min.js"></script>
+<script src="/dist/amazon-cognito-auth.js"></script>
 	<!-- To enable the advanced security feature -->
 	<!-- <script src="https://amazon-cognito-assets.<region>.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
 	<!-- E.g. -->
@@ -131,23 +131,20 @@
  
 	<script>
 function showBoxUI(boxAccessToken) {
-	
+	console.log("tok:" + boxAccessToken.accessToken)
 	$(".view").hide();
-	getBoxToken(boxAccessToken).then(function(result) {
-		var folderId = '0';
-
-		var contentExplorer = new Box.ContentExplorer();
-		contentExplorer.show(folderId, accessToken, {
+	var folderId = '0';
+	var contentExplorer = new Box.ContentExplorer();
+	contentExplorer.show(folderId, boxAccessToken.accessToken, {
 			container: '#app-container',
 			logoUrl: 'box'
 			// logoUrl: 'https://www.okta.com/sites/all/themes/Okta/images/blog/Logos/Okta_Logo_BrightBlue_Medium.png'
-		})
-	});
+	})
+	
 
 	$("#app-container").show();
 	$("#myModal").toggle();
 }
-var accessToken;
 	// Operations when the web page is loaded.
 	function onLoad() {
 		var i, items, tabs;
@@ -160,11 +157,15 @@ var accessToken;
 		// Initiatlize CognitoAuth object
 		var auth = initCognitoSDK();
 		document.getElementById("signInButton").addEventListener("click", function() {
-			userButton(auth);
-		});
-		document.getElementById("signout").addEventListener("click", function() {
-			auth.signOut();
-			showSignedOut();
+			var state = document.getElementById('signInButton').innerHTML;
+			console.log(state=='Log in/Register');
+			if(state.contains('Log in/Register')) {
+				userButton(auth);
+			}
+			else {
+				auth.signOut();
+				//showSignedOut();
+			}
 		});
 		var curUrl = window.location.href;
 		auth.parseCognitoWebResponse(curUrl);
@@ -270,8 +271,7 @@ var accessToken;
 			onSuccess: function(result) {
 				console.log("res:" + JSON.stringify(result));
 				showSignedIn(result);
-				console.log(result.accessToken);
-				showBoxUI(result.accessToken);
+				getBoxToken(result.accessToken);
 			},
 			onFailure: function(err) {
 				alert("Error!" + err);
@@ -281,29 +281,41 @@ var accessToken;
 		// auth.useCodeGrantFlow();
 		return auth;
 	}
-	async function getBoxToken(cognitoAccess) {
-		console.log(JSON.stringify(cognitoAccess));
-		// https://na43ohqfe2.execute-api.eu-west-2.amazonaws.com/default/box-cognito-sandpit-token-exchange
-		await $.ajax({
-			url: 'https://4anvob1li7.execute-api.eu-west-2.amazonaws.com/default/box-cognito-sandpit-token-exchange',
-			//url:"https://na43ohqfe2.execute-api.eu-west-2.amazonaws.com/aws",
-    		type: 'POST',
-    		crossDomain: true,
-    		contentType: 'application/json',
-			data: JSON.stringify(cognitoAccess),
-			headers:{"Authorization": JSON.stringify(cognitoAccess)},
-			dataType: 'json',
-			//dataType: "jsonp",
-    		success: function(data) {
-				console.log(data);
-				accessToken = data.accessToken;
-   			 },
-    		error: function(xhr, ajaxOptions, thrownError) {
-				console.log(JSON.stringify(xhr));
-   		 }
-		});
-		
+	function getBoxToken(cognitoAccess) {
+		console.log(cognitoAccess);
+		$.post( "/boxUI", { accessToken: cognitoAccess.jwtToken }, function(json) {
+			console.log("msg: " + JSON.stringify(json.accessToken));
+			accessToken = json.accessToken;
+			showBoxUI(accessToken)
+
+		})
+		 .done(function( boxAccessToken ) {
+			 	//$("#myModal").toggle();
+				 //$(".view").hide();
+		 });
 	}
+		//console.log(JSON.stringify(cognitoAccess));
+		// https://na43ohqfe2.execute-api.eu-west-2.amazonaws.com/default/box-cognito-sandpit-token-exchange
+		//await $.ajax({
+		//	url: 'https://4anvob1li7.execute-api.eu-west-2.amazonaws.com/default/box-cognito-sandpit-token-exchange',
+		//	//url:"https://na43ohqfe2.execute-api.eu-west-2.amazonaws.com/aws",
+    	//	type: 'POST',
+    	//	crossDomain: true,
+    	//	contentType: 'application/json',
+		//	data: JSON.stringify(cognitoAccess),
+		//	headers:{"Authorization": JSON.stringify(cognitoAccess)},
+		//	dataType: 'json',
+			//dataType: "jsonp",
+    	//	success: function(data) {
+		//		console.log(data);
+		//		accessToken = data.accessToken;
+   		//	 },
+    	//	error: function(xhr, ajaxOptions, thrownError) {
+		//		console.log(JSON.stringify(xhr));
+   		 //}
+		//});
+		
+//}
 	</script>
 </body>
 </html>
