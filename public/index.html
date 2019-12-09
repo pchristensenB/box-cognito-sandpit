@@ -115,7 +115,12 @@
 				  </div>
   
 				  <div class="col-md-6">
-  
+						<a href="#" id="popreg">
+								[ Register Diagram |
+							</a>
+							<a href="#" id="poplog">
+								Login Diagram ]
+							</a>
 					  <div class="view">
 						  <img src="https://pchristensenb.github.io/Template/sidebar-image.jpeg" class="img-fluid" alt="smaple image">
 						  <div class="mask flex-center gradient">
@@ -128,7 +133,19 @@
   
 		  </section>
 		</div>
- 
+		<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					  <div class="modal-content">
+						<div class="modal-header">
+						  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						</div>
+						<div class="modal-body" style="background:white;">
+						  <img src="" style="margin-left:-400px;margin-top:-100px;" id="imagepreview" >
+						</div>
+					
+					  </div>
+				</div>
+			</div>
 	<script>
 function showBoxUI(boxAccessToken) {
 	console.log("tok:" + boxAccessToken.accessToken)
@@ -147,6 +164,16 @@ function showBoxUI(boxAccessToken) {
 }
 	// Operations when the web page is loaded.
 	function onLoad() {
+		$("#imagemodal").toggle();
+
+		$("#popreg").on("click", function() {
+   		$('#imagepreview').attr('src', '/img/register.png'); 
+   		$('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+	});
+	$("#poplog").on("click", function() {
+   		$('#imagepreview').attr('src', '/img/login.png'); 
+   		$('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+	});
 		var i, items, tabs;
 		items = document.getElementsByClassName("tab-pane");
 		for (i = 0; i < items.length; i++) {
