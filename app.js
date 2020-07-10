@@ -68,19 +68,30 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 //////////////////////////////////////////////////
 app.post('/boxUI', urlencodedParser, function (req, res) {
 	console.log("tok:" + req.body.accessToken);
+	console.log("id:" + req.body.idToken);
 	const cognitoID = retrieveCognitoID(req.body.accessToken);
+	const cognitoEmail = retrieveCognitoEmail(req.body.idToken);
 	console.log(`Cognito ID: ${cognitoID}`);
 	getAppUserID(cognitoID)
 		.then((appUserID) => {
 			//If the box user is not present in Cognito, throw error
-			if (!appUserID) {
+			if (!appUserID.id) {
 				res.json({error: "some error"});
 			}
 			else {
-				console.log(`App User ID is: ${appUserID}`);
-				session.getAppUserTokens(appUserID).then(function(accessToken) {
+				console.log(`App User ID is: ${appUserID.id}`);
+				session.getAppUserTokens(appUserID.id).then(function(accessToken) {
 					console.log("the access token is: " + accessToken);
-					res.json({accessToken: accessToken});
+					res.json({
+						accessToken: accessToken.accessToken,
+						cognitoId:cognitoID,
+						email:cognitoEmail,
+						userName:appUserID.name,
+						login:appUserID.login,
+						extId:appUserID.extId,
+						boxId:appUserID.id
+
+					});
 				})
 			}
 		});
@@ -99,11 +110,11 @@ app.get('/', function (req, res) {
 })
 
 const getAppUserID = (cognitoID) => {
-    return serviceAccountClient.enterprise.getUsers({ "external_app_user_id": cognitoID })
+    return serviceAccountClient.enterprise.getUsers({ "external_app_user_id": cognitoID,"fields":"id,name,login,external_app_user_id" })
         .then((result) => {
             console.log(result);
             if (result.total_count > 0) {
-                return result.entries[0].id;
+                return {id:result.entries[0].id,name:result.entries[0].name,login:result.entries[0].login,extId:result.entries[0].external_app_user_id};
             } else {
                 throw new Error("Couldn't find an App User for this user.");
             }
@@ -114,6 +125,15 @@ const retrieveCognitoID = (accessToken) => {
     console.log("dec:" + JSON.stringify(decoded));
     if (decoded ) {
         return decoded.sub;
+    } else {
+        return "NOTFOUND";
+    }
+}
+const retrieveCognitoEmail = (idToken) => {
+    var decoded = jwtDecode(idToken);
+    console.log("dec:" + JSON.stringify(idToken));
+    if (decoded ) {
+        return decoded.email;
     } else {
         return "NOTFOUND";
     }
