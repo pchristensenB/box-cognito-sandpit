@@ -23,7 +23,6 @@
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Material Design Bootstrap -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.0/en-US/explorer.css" />
 	<style>
@@ -64,6 +63,9 @@
 			padding: 0 18px;
 			display: none;
 		}
+		.waves-light {
+			color: white !important;
+		}
 	</style>
 
 	<!-- Bootstrap tooltips -->
@@ -84,8 +86,8 @@
 	<div class="navbar-wrapper">
 		<div class="container">
 
-			<nav class="navbar navbar-expand-lg sticky-top navbar-dark  blue-gradient">
-				<div class="container">
+				<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+						<div class="container">
 
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="navbar-nav mr-auto">
@@ -113,7 +115,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="d-flex flex-column  h-100">
-						<h3 class="heading display-4">Welcome to the Cognito and Box Platform Demo</h3>
+						<h3 class="heading display-5">Cognito and Box Platform Demo</h3>
 						<p class="subheading" id="mainMsg1">Shows Cognito integration with Box platform and app users. In this demo we use
 							<a href="https://github.com/aws/amazon-cognito-auth-js" target="_new">Cognito's Javascript API</a> and we redirect to Cognito built-in login and registration forms. The Box App User is
 							created in a lambda when the user is verified and the 'external_app_user_id' attribute is populated with the Cognito

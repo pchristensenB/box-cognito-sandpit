@@ -1723,7 +1723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      // Build the complete web domain to launch the login screen
 	      var uri = this.getCognitoConstants().DOMAIN_SCHEME.concat(this.getCognitoConstants().COLONDOUBLESLASH, this.getAppWebDomain(), this.getCognitoConstants().SLASH, this.getCognitoConstants().DOMAIN_PATH_SIGNIN, this.getCognitoConstants().QUESTIONMARK, this.getCognitoConstants().DOMAIN_QUERY_PARAM_REDIRECT_URI, this.getCognitoConstants().EQUALSIGN, encodeURIComponent(this.RedirectUriSignIn), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().DOMAIN_QUERY_PARAM_RESPONSE_TYPE, this.getCognitoConstants().EQUALSIGN, this.responseType, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().CLIENT_ID, this.getCognitoConstants().EQUALSIGN, this.getClientId(), this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().STATE, this.getCognitoConstants().EQUALSIGN, this.state, this.getCognitoConstants().AMPERSAND, this.getCognitoConstants().SCOPE, this.getCognitoConstants().EQUALSIGN, tokenScopesString, identityProviderParam, userContextDataParam);
-
+				
 	      return uri;
 	    }
 
@@ -2267,7 +2267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					json: true
 				}, [].slice.call(arguments));
 			};
-			api.defaults = {};
+			api.defaults = {};RedirectUriSignIn
 
 			api.remove = function (key, attributes) {
 				api(key, '', extend(attributes, {
