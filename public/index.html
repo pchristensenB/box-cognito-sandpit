@@ -10,30 +10,20 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<script src="/dist/amazon-cognito-auth.js"></script>
-	<!-- To enable the advanced security feature -->
-	<!-- <script src="https://amazon-cognito-assets.<region>.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
-	<!-- E.g. -->
-	<!-- <script src="https://amazon-cognito-assets.us-east-1.amazoncognito.com/amazon-cognito-advanced-security-data.min.js"></script> -->
 	<title>Box Platform + Cognito</title>
-
-	<!-- CSS -->
 
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 	<!-- Bootstrap core CSS -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Material Design Bootstrap -->
 
-	<link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.0/en-US/explorer.css" />
+	<link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/13.0.0/en-US/explorer.css" />
 	<style>
 		#app-container,
 		#signoutDiv,
 		#loadingDiv {
 			display: none;
 		}
-	</style>
-	<style>
-		/* Style the button that is used to open and close the collapsible content */
 
 		.collapsible {
 			background-color: #eee;
@@ -63,6 +53,7 @@
 			padding: 0 18px;
 			display: none;
 		}
+
 		.waves-light {
 			color: white !important;
 		}
@@ -72,23 +63,17 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 	<!-- Bootstrap core JavaScript -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<!-- MDB core JavaScript -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
-	<!-- BOX JS-->
-
 	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Intl"></script>
 
-	<script src="https://cdn01.boxcdn.net/platform/elements/11.0.0/en-US/explorer.js"></script>
+	<script src="https://cdn01.boxcdn.net/platform/elements/13.0.0/en-US/explorer.js"></script>
 
 </head>
 
 <body onload="onLoad()">
 	<div class="navbar-wrapper">
 		<div class="container">
-
-				<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-						<div class="container">
-
+			<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+				<div class="container">
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active">
@@ -96,14 +81,13 @@
 							</li>
 							<li class="nav-item" id="loginLink">
 								<a class="nav-link waves-effect waves-light" id="signInButton" href="javascript:void(0)" title="Sign in">Log in/Register</a>
-
+							</li>	
 						</ul>
 					</div>
 				</div>
 			</nav>
 			<button type="button" class="collapsible" id="userinfo">Open User Info</button>
 			<div id="user" class="content"></div>
-
 		</div>
 	</div>
 
@@ -179,7 +163,7 @@
 				container: '#app-container',
 				logoUrl: 'box'
 			})
-			
+
 			$("#app-container").height(600);
 			var coll = document.getElementsByClassName("collapsible");
 			var i;
@@ -234,11 +218,7 @@
 			});
 			var curUrl = window.location.href;
 			auth.parseCognitoWebResponse(curUrl);
-
 		}
-
-
-
 		// Perform user operations.
 		function userButton(auth) {
 			var state = document.getElementById('signInButton').innerHTML;
@@ -248,7 +228,7 @@
 				showSignedOut();
 			} else {
 				//auth.getSession();
-				window.location.href='https://boxsandpitdemoapp.auth.eu-west-2.amazoncognito.com/login?client_id=l8ajfjlh0lsrspnknvnqnunpq&response_type=token&scope=email+openid&redirect_uri=https://box-cognito-sandpit.herokuapp.com';
+				window.location.href = 'https://boxsandpitdemoapp.auth.eu-west-2.amazoncognito.com/login?client_id=l8ajfjlh0lsrspnknvnqnunpq&response_type=token&scope=email+openid&redirect_uri=https://box-cognito-sandpit.herokuapp.com';
 			}
 		}
 
@@ -259,7 +239,7 @@
 			document.getElementById("signInButton").innerHTML = "Sign Out";
 			if (session) {
 				console.log(session);
-				
+
 			}
 			//openTab("userdetails");
 		}
@@ -279,7 +259,7 @@
 			var authData = {
 				ClientId: 'l8ajfjlh0lsrspnknvnqnunpq', // Your client id here
 				AppWebDomain: 'boxsandpitdemoapp.auth.eu-west-2.amazoncognito.com', // Exclude the "https://" part. 
-				TokenScopesArray: ['email','openid'], // like ['openid','email','phone']...
+				TokenScopesArray: ['email', 'openid'], // like ['openid','email','phone']...
 				RedirectUriSignIn: location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''),
 				RedirectUriSignOut: location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : ''),
 				IdentityProvider: 'box-cognito-sandpit',
@@ -303,7 +283,7 @@
 		}
 		function getBoxToken(cognitoAccess) {
 			console.log(cognitoAccess);
-			$.post("/boxUI", { accessToken: cognitoAccess.accessToken.jwtToken,idToken:cognitoAccess.idToken.jwtToken }, function (json) {
+			$.post("/boxUI", { accessToken: cognitoAccess.accessToken.jwtToken, idToken: cognitoAccess.idToken.jwtToken }, function (json) {
 				console.log("msg: " + JSON.stringify(json));
 				boxAccessToken = json.accessToken;
 				showBoxUI(boxAccessToken);
