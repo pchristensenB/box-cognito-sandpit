@@ -64,7 +64,7 @@ $(document).ready(function() {
 });
 // Perform user operations.
 function userButton(auth) {
-    var state = document.getElementById('signInButton').innerHTML;
+    var state = $('#signInButton').text();
     if (state === "Sign Out") {
         $("#signInButton").text("Login/Register");
         auth.signOut();
@@ -77,9 +77,10 @@ function userButton(auth) {
 
 // Operations when signed in.
 function showSignedIn(session) {
+    console.log("calling signed out")
     $("#statusNotAuth").hide();
     $("#statusAuth").show();
-    $(".signInButton").text("Sign Out");
+    $("#signInButton").text("Sign Out");
 }
 
 // Operations when signed out.
@@ -112,7 +113,7 @@ function initCognitoSDK() {
 
             getBoxToken(result);
             showSignedIn();
-            $(".signInButton").text("Sign Out");
+            $("#signInButton").text("Sign Out");
 
         },
         onFailure: function (err) {
