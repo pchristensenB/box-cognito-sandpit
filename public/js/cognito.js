@@ -111,6 +111,9 @@ function initCognitoSDK() {
             $(".load").html("<img src='https://pcboxdemo.github.io/load.gif'/>").show();
 
             getBoxToken(result);
+            showSignedIn();
+            $(".signInButton").text("Sign Out");
+
         },
         onFailure: function (err) {
             alert("Error!" + err);
@@ -130,6 +133,5 @@ function getBoxToken(cognitoAccess) {
         $("#user").append("Box User Name:" + json.userName).append("<br/>");
         $("#user").append("Box User Login:" + json.login).append("<br/>");
 
-    })
-    showSignedIn();
+    });
 }
