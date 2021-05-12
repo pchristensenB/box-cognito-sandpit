@@ -51,7 +51,7 @@ $(document).ready(function() {
     $("#signInButton").click( function () {
         var state = $('#signInButton').text();
         console.log(state);
-        if (state.contains('Log in/Register')) {
+        if (state.contains('Login/Register')) {
             userButton(auth);
         }
         else {
@@ -66,7 +66,7 @@ $(document).ready(function() {
 function userButton(auth) {
     var state = document.getElementById('signInButton').innerHTML;
     if (state === "Sign Out") {
-        $("#signInButton").innerHTML = "Sign In";
+        $("#signInButton").innerHTML = "Login/Register";
         auth.signOut();
         showSignedOut();
     } else {
@@ -131,4 +131,5 @@ function getBoxToken(cognitoAccess) {
         $("#user").append("Box User Login:" + json.login).append("<br/>");
 
     })
+    showSignedIn();
 }
