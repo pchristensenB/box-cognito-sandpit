@@ -58,9 +58,7 @@ app.listen(port, function () {
 
 let serviceAccountClient;
 
-console.log("Using config file...");
-let configFile =boxAppSettings;
-let session = box.getPreconfiguredInstance(configFile);
+let session = box.getPreconfiguredInstance(boxAppSettings);
 serviceAccountClient = session.getAppAuthClient('enterprise');
 
 var jsonParser = bodyParser.json()
@@ -102,9 +100,6 @@ app.get('/', function (req, res) {
 		if (err) {
 			console.log("error reading the index.html file")
 		}
-
-		
-
 		res.send(page)
 	})
 })
