@@ -66,7 +66,7 @@ $(document).ready(function() {
 function userButton(auth) {
     var state = document.getElementById('signInButton').innerHTML;
     if (state === "Sign Out") {
-        $("#signInButton").innerHTML = "Login/Register";
+        $("#signInButton").text("Login/Register");
         auth.signOut();
         showSignedOut();
     } else {
@@ -79,7 +79,7 @@ function userButton(auth) {
 function showSignedIn(session) {
     $("#statusNotAuth").hide();
     $("#statusAuth").show();
-    $(".signInButton").innerHTML = "Sign Out";
+    $(".signInButton").text("Sign Out");
 }
 
 // Operations when signed out.
