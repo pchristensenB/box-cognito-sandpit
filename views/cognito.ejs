@@ -71,7 +71,7 @@ function userButton(auth) {
         showSignedOut();
     } else {
         //auth.getSession();
-        window.location.href = 'https://<%=COGNITO_APP_WEB_DOMAIN%>/login?client_id=<%=cognitoClientId%>&response_type=token&scope=email+openid&redirect_uri=<%=cognitoRedirectUrl%>';
+        window.location.href = 'https://<%=cognitoAppDomain%>/login?client_id=<%=cognitoClientId%>&response_type=token&scope=email+openid&redirect_uri=<%=cognitoRedirectUrl%>';
     }
 }
 
