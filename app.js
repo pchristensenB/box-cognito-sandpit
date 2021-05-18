@@ -84,7 +84,7 @@ app.post('/boxUI', urlencodedParser, function (req, res) {
 				})
 			}
 		})
-		.fail(res.json({"error":"Could not find app user"}));
+		.catch(error=>res.json({"error":"Could not find app user"}));
 });
 app.get('/cognito.js', function(req, res) {
 	res.render('cognito', { 
