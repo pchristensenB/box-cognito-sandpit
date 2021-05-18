@@ -83,7 +83,8 @@ app.post('/boxUI', urlencodedParser, function (req, res) {
 					});
 				})
 			}
-		});
+		})
+		.fail(res.json({"error":"Could not find app user"}));
 });
 app.get('/cognito.js', function(req, res) {
 	res.render('cognito', { 
@@ -108,7 +109,7 @@ const getAppUserID = (cognitoID) => {
             if (result.total_count > 0) {
                 return {id:result.entries[0].id,name:result.entries[0].name,login:result.entries[0].login,extId:result.entries[0].external_app_user_id};
             } else {
-                throw new Error("Couldn't find an App User for this user.");
+                return new Error("Couldn't find an App User for this user.");
             }
         });
 }
