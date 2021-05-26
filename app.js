@@ -32,8 +32,8 @@ app.set('view engine', 'ejs');
 var port = process.env.PORT || 3000;
 
 app.use(express.static('public'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 
 app.listen(port, function () {
@@ -41,8 +41,8 @@ app.listen(port, function () {
 })
 
 
- var jsonParser = bodyParser.json()
- var urlencodedParser = bodyParser.urlencoded({ extended: false });
+ var jsonParser = express.json()
+ var urlencodedParser = express.urlencoded({ extended: false });
 
 //////////////////////////////////////////////////
 
@@ -65,7 +65,7 @@ app.post('/boxUI', urlencodedParser, function (req, res) {
 		.then((appUserID) => {
 			//If the box user is not present in Cognito, throw error
 			if (!appUserID.id) {
-				res.json({error: "some error"});
+				res.json({error: "no app user found, something went wrong. Please try again with a different email"});
 			}
 			else {
 				console.log(`App User ID is: ${appUserID.id}`);
