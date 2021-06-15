@@ -64,7 +64,7 @@ $(document).ready(function() {
     $("#signInButton").click( function () {
         var state = $('#signInButton').text();
         console.log(state);
-        if (state.contains('Login/Register')) {
+        if (state=='Login/Register') {
             userButton(auth);
         }
         else {
