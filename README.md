@@ -74,11 +74,11 @@ You will need both a AWS  account and a Box account
 ## Setup and run the app
 
 1. Clone this repository and create an '.env' file in the root and add the following key/value pair
-  -  AUTH0_CLIENT_ID=..from the settings page of your Auth0 app
-  -  AUTH0_DOMAIN=..from the settings page of your Auth0 app
-  -  AUTH0_CLIENT_SECRET=....from the settings page of your Auth0 app
-  -  SESSION_SECRET=..random string 
-  -  AUTH0_CALLBACK_URL=http://localhost:3000/callback
+  -  COGNITO_CLIENT_ID=..from the settings page of your Auth0 app
+  -  COGNITO_APP_WEB_DOMAIN=..from the settings page of your Auth0 app
+  -  COGNITO_IDENTIFY_PROVIDER=....from the settings page of your Auth0 app
+  -  COGNITO_USER_POOL_ID=..random string 
+  -  COGNITO_REDIRECT_URL=http://localhost:3000
   -  BOX_JWT=..jwt json config in a single line
 
 2. Install dependencies
