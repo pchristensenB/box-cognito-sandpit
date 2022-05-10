@@ -74,10 +74,10 @@ You will need both a AWS  account and a Box account
 ## Setup and run the app
 
 1. Clone this repository and create an '.env' file in the root and add the following key/value pair
-  -  COGNITO_CLIENT_ID=..from the settings page of your Auth0 app
-  -  COGNITO_APP_WEB_DOMAIN=..from the settings page of your Auth0 app
-  -  COGNITO_IDENTIFY_PROVIDER=....from the settings page of your Auth0 app
-  -  COGNITO_USER_POOL_ID=..random string 
+  -  COGNITO_CLIENT_ID=..from the settings page of your Cognito app
+  -  COGNITO_APP_WEB_DOMAIN=..from the settings page of your Cognito app
+  -  COGNITO_IDENTIFY_PROVIDER=..name of your user pool
+  -  COGNITO_USER_POOL_ID=..id of your user pool
   -  COGNITO_REDIRECT_URL=http://localhost:3000
   -  BOX_JWT=..jwt json config in a single line
 
