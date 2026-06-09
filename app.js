@@ -3,23 +3,13 @@
 ////////////////////////////////////////////////////
 
 require('dotenv').config()
-const jwtDecode = require('jwt-decode');
-
-var bodyParser = require('body-parser');
+const { jwtDecode } = require('jwt-decode');
 
 const box = require('box-node-sdk');
 
 const express = require('express');
 
-var fs = require('fs');
-
-var http = require("https");
-
 var nJwt = require('njwt');
-
-var util = require('util');
-
-var request = require('request');
 const boxAppSettings =process.env.BOX_JWT
 
 ///////////////////////////////////////////////////
@@ -40,20 +30,15 @@ app.listen(port, function () {
 	console.log('App listening on port ' + port + '...');
 })
 
-
- var jsonParser = express.json()
- var urlencodedParser = express.urlencoded({ extended: false });
+var jsonParser = express.json()
+var urlencodedParser = express.urlencoded({ extended: false });
 
 //////////////////////////////////////////////////
-
 
 let serviceAccountClient;
 
 let session = box.getPreconfiguredInstance(JSON.parse(boxAppSettings));
 serviceAccountClient = session.getAppAuthClient('enterprise');
-
-var jsonParser = bodyParser.json()
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
 //////////////////////////////////////////////////
 app.post('/boxUI', urlencodedParser, function (req, res) {
 	console.log("tok:" + req.body.accessToken);
@@ -84,7 +69,7 @@ app.post('/boxUI', urlencodedParser, function (req, res) {
 				})
 			}
 		})
-		.catch(error=>res.error({"error":error}));
+		.catch(error=>res.status(500).json({"error":error.message || error}));
 });
 app.get('/cognito.js', function(req, res) {
 	res.render('cognito', { 
